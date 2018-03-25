@@ -9,8 +9,7 @@ JSON解析使用了GSON和JSONObject
 轮播图使用ViewPager实现，自动轮播通过Handler延时发送Message实现
 加载到最底部第六个Item时自动加载更多
 SwipeRefreshLayout实现下拉刷新
-![image］(https://raw.githubusercontent.com/Scabe/NewsApp/master/app/src/test/java/ScreenHots/device-2018-03-25-232731.png)
-
+![image](https://raw.githubusercontent.com/Scabe/NewsApp/master/app/src/test/java/ScreenHots/device-2018-03-25-232731.png)
 # 想法
 模仿知乎界面
 想做一个类似知乎一样的论坛，但是缺少数据和API
@@ -21,4 +20,4 @@ SwipeRefreshLayout实现下拉刷新
 
 # 我的
 简单的用户界面
-![image］(https://raw.githubusercontent.com/Scabe/NewsApp/master/app/src/test/java/ScreenHots/device-2018-03-25-232758.png)
+![image](https://raw.githubusercontent.com/Scabe/NewsApp/master/app/src/test/java/ScreenHots/device-2018-03-25-232758.png)
