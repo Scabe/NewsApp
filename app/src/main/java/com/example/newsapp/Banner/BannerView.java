@@ -134,7 +134,6 @@ public class BannerView extends FrameLayout {
         if(hasFocus)
             once = true;
         startLoop(hasFocus);
-        System.out.println("dispatchWindowFocusChanged");
         super.dispatchWindowFocusChanged(hasFocus);
     }
 
@@ -142,14 +141,12 @@ public class BannerView extends FrameLayout {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        System.out.println("onAttachedToWindow");
         startLoop(true);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        System.out.println("onDetachedFromWindow");
         startLoop(false);
     }
 
@@ -309,7 +306,6 @@ public class BannerView extends FrameLayout {
                 viewSize = 4;
             }
             initList();
-            //BannerAdapter adapter = new BannerAdapter(viewList);
             BannerAdapter adapter = new BannerAdapter(list);
             setAdapter(adapter);
         }
