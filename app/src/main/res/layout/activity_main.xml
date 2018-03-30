@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/messagestext"
-                android:text="@string/tx1"/>
+                android:text="@string/tx_messages"/>
         </LinearLayout>
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contactstext"
-                android:text="@string/tx2"/>
+                android:text="@string/tx_contacts"/>
         </LinearLayout>
 
         <LinearLayout
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/newstext"
-                android:text="@string/tx3"/>
+                android:text="@string/tx_news"/>
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/settingtext"
-                android:text="@string/tx4"/>
+                android:text="@string/tx_settings"/>
         </LinearLayout>
 
     </LinearLayout>

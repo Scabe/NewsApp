@@ -2,8 +2,8 @@
     <string name="app_name">NewsApp</string>
     <string name="news_layout_text">您尚未关注</string>
     <string name="footer">我是Footer</string>
-    <string name="tx1">首页</string>
-    <string name="tx2">想法</string>
-    <string name="tx3">关注</string>
-    <string name="tx4">我的</string>
+    <string name="tx_messages">首页</string>
+    <string name="tx_contacts">想法</string>
+    <string name="tx_news">关注</string>
+    <string name="tx_settings">我的</string>
 </resources>

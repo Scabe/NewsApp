@@ -21,20 +21,20 @@ import com.example.newsapp.R;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
-    private LinearLayout fag1;
-    private LinearLayout fag2;
-    private LinearLayout fag3;
-    private LinearLayout fag4;
+    private LinearLayout ll_messages;
+    private LinearLayout ll_contacts;
+    private LinearLayout ll_news;
+    private LinearLayout ll_settings;
 
-    private TextView tx1;
-    private TextView tx2;
-    private TextView tx3;
-    private TextView tx4;
+    private TextView tx_messages;
+    private TextView tx_contacts;
+    private TextView tx_news;
+    private TextView tx_settings;
 
-    private TextPaint tp1;
-    private TextPaint tp2;
-    private TextPaint tp3;
-    private TextPaint tp4;
+    private TextPaint tp_messages;
+    private TextPaint tp_contacts;
+    private TextPaint tp_news;
+    private TextPaint tp_settings;
 
     private ContactsFragment contactsFragment;
     private NewsFragment newsFragment;
@@ -43,14 +43,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private FragmentManager fragmentManager;
 
-    private Drawable drawable11 = null;
-    private Drawable drawable12 = null;
-    private Drawable drawable21 = null;
-    private Drawable drawable22 = null;
-    private Drawable drawable31 = null;
-    private Drawable drawable32 = null;
-    private Drawable drawable41 = null;
-    private Drawable drawable42 = null;
+    private Drawable drawable_messages_normal = null;
+    private Drawable drawable_messages_click = null;
+    private Drawable drawable_contacts_normal = null;
+    private Drawable drawable_contacts_click = null;
+    private Drawable drawable_news_normal = null;
+    private Drawable drawable_news_click = null;
+    private Drawable drawable_settings_normal = null;
+    private Drawable drawable_settings_click = null;
 
 
     @Override
@@ -65,22 +65,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void initdrawable() {
-        drawable11 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.home_black);
-        drawable11.setBounds(0,0,50,50);
-        drawable12 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.home_blue);
-        drawable12.setBounds(0,0,50,50);
-        drawable21 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.list_black);
-        drawable21.setBounds(0,0,50,50);
-        drawable22 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.list_blue);
-        drawable22.setBounds(0,0,50,50);
-        drawable31 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.msg_black);
-        drawable31.setBounds(0,0,50,50);
-        drawable32 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.msg_blue);
-        drawable32.setBounds(0,0,50,50);
-        drawable41 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.character_black);
-        drawable41.setBounds(0,0,50,50);
-        drawable42 = ContextCompat.getDrawable(getApplicationContext(),R.drawable.character_blue);
-        drawable42.setBounds(0,0,50,50);
+        drawable_messages_normal = ContextCompat.getDrawable(getApplicationContext(),R.drawable.home_black);
+        drawable_messages_normal.setBounds(0,0,50,50);
+        drawable_messages_click = ContextCompat.getDrawable(getApplicationContext(),R.drawable.home_blue);
+        drawable_messages_click.setBounds(0,0,50,50);
+        drawable_contacts_normal = ContextCompat.getDrawable(getApplicationContext(),R.drawable.list_black);
+        drawable_contacts_normal.setBounds(0,0,50,50);
+        drawable_contacts_click = ContextCompat.getDrawable(getApplicationContext(),R.drawable.list_blue);
+        drawable_contacts_click.setBounds(0,0,50,50);
+        drawable_news_normal = ContextCompat.getDrawable(getApplicationContext(),R.drawable.msg_black);
+        drawable_news_normal.setBounds(0,0,50,50);
+        drawable_news_click = ContextCompat.getDrawable(getApplicationContext(),R.drawable.msg_blue);
+        drawable_news_click.setBounds(0,0,50,50);
+        drawable_settings_normal = ContextCompat.getDrawable(getApplicationContext(),R.drawable.character_black);
+        drawable_settings_normal.setBounds(0,0,50,50);
+        drawable_settings_click = ContextCompat.getDrawable(getApplicationContext(),R.drawable.character_blue);
+        drawable_settings_click.setBounds(0,0,50,50);
     }
 
     private void setdrawable(TextView tx,Drawable dw){
@@ -89,26 +89,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void initviews() {
-        fag1 = findViewById(R.id.fra1);
-        fag2 = findViewById(R.id.fra2);
-        fag3 = findViewById(R.id.fra3);
-        fag4 = findViewById(R.id.fra4);
-        tx1 = findViewById(R.id.messagestext);
-        tp1 = tx1.getPaint();
-        tx2 = findViewById(R.id.contactstext);
-        tp2 = tx2.getPaint();
-        tx3 = findViewById(R.id.newstext);
-        tp3 = tx3.getPaint();
-        tx4 = findViewById(R.id.settingtext);
-        tp4 = tx4.getPaint();
-        setdrawable(tx1,drawable11);
-        setdrawable(tx2,drawable21);
-        setdrawable(tx3,drawable31);
-        setdrawable(tx4,drawable41);
-        fag1.setOnClickListener(this);
-        fag2.setOnClickListener(this);
-        fag3.setOnClickListener(this);
-        fag4.setOnClickListener(this);
+        ll_messages = findViewById(R.id.fra1);
+        ll_contacts = findViewById(R.id.fra2);
+        ll_news = findViewById(R.id.fra3);
+        ll_settings = findViewById(R.id.fra4);
+        tx_messages = findViewById(R.id.messagestext);
+        tp_messages = tx_messages.getPaint();
+        tx_contacts = findViewById(R.id.contactstext);
+        tp_contacts = tx_contacts.getPaint();
+        tx_news = findViewById(R.id.newstext);
+        tp_news = tx_news.getPaint();
+        tx_settings = findViewById(R.id.settingtext);
+        tp_settings = tx_settings.getPaint();
+        setdrawable(tx_messages,drawable_messages_normal);
+        setdrawable(tx_contacts,drawable_contacts_normal);
+        setdrawable(tx_news,drawable_news_normal);
+        setdrawable(tx_settings,drawable_settings_normal);
+        ll_messages.setOnClickListener(this);
+        ll_contacts.setOnClickListener(this);
+        ll_news.setOnClickListener(this);
+        ll_settings.setOnClickListener(this);
     }
 
     @Override
@@ -138,44 +138,44 @@ public class MainActivity extends Activity implements View.OnClickListener{
         clearFakeBoldText();
         switch (i){
             case 0:
-                setdrawable(tx1,drawable12);
+                setdrawable(tx_messages,drawable_messages_click);
                 if(messagesFragment == null){
                     messagesFragment = new MessagesFragment();
                     transaction.add(R.id.content,messagesFragment);
                 }
                 transaction.show(messagesFragment);
-                tx1.setTextColor(0xFF63B8FF);
-                tp1.setFakeBoldText(true);
+                tx_messages.setTextColor(0xFF63B8FF);
+                tp_messages.setFakeBoldText(true);
                 break;
             case 1:
-                setdrawable(tx2,drawable22);
+                setdrawable(tx_contacts,drawable_contacts_click);
                 if(contactsFragment == null){
                     contactsFragment = new ContactsFragment();
                     transaction.add(R.id.content,contactsFragment);
                 }
                 transaction.show(contactsFragment);
-                tx2.setTextColor(0xFF63B8FF);
-                tp2.setFakeBoldText(true);
+                tx_contacts.setTextColor(0xFF63B8FF);
+                tp_contacts.setFakeBoldText(true);
                 break;
             case 2:
-                setdrawable(tx3,drawable32);
+                setdrawable(tx_news,drawable_news_click);
                 if(newsFragment == null){
                     newsFragment = new NewsFragment();
                     transaction.add(R.id.content,newsFragment);
                 }
                 transaction.show(newsFragment);
-                tx3.setTextColor(0xFF63B8FF);
-                tp3.setFakeBoldText(true);
+                tx_news.setTextColor(0xFF63B8FF);
+                tp_news.setFakeBoldText(true);
                 break;
             case 3:
-                setdrawable(tx4,drawable42);
+                setdrawable(tx_settings,drawable_settings_click);
                 if(settingsFragment == null) {
                     settingsFragment = new SettingsFragment();
                     transaction.add(R.id.content, settingsFragment);
                 }
                 transaction.show(settingsFragment);
-                tx4.setTextColor(0xFF63B8FF);
-                tp4.setFakeBoldText(true);
+                tx_settings.setTextColor(0xFF63B8FF);
+                tp_settings.setFakeBoldText(true);
                 break;
             default:
                 break;
@@ -184,14 +184,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void clearFakeBoldText() {
-        tx1.setTextColor(Color.BLACK);
-        tx2.setTextColor(Color.BLACK);
-        tx3.setTextColor(Color.BLACK);
-        tx4.setTextColor(Color.BLACK);
-        tp1.setFakeBoldText(false);
-        tp2.setFakeBoldText(false);
-        tp3.setFakeBoldText(false);
-        tp4.setFakeBoldText(false);
+        tx_messages.setTextColor(Color.BLACK);
+        tx_contacts.setTextColor(Color.BLACK);
+        tx_news.setTextColor(Color.BLACK);
+        tx_settings.setTextColor(Color.BLACK);
+        tp_messages.setFakeBoldText(false);
+        tp_contacts.setFakeBoldText(false);
+        tp_news.setFakeBoldText(false);
+        tp_settings.setFakeBoldText(false);
     }
 
     private void hideFragments(FragmentTransaction transaction) {
@@ -210,9 +210,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
     private void clearSelection() {
-        setdrawable(tx1,drawable11);
-        setdrawable(tx2,drawable21);
-        setdrawable(tx3,drawable31);
-        setdrawable(tx4,drawable41);
+        setdrawable(tx_messages,drawable_messages_normal);
+        setdrawable(tx_contacts,drawable_contacts_normal);
+        setdrawable(tx_news,drawable_news_normal);
+        setdrawable(tx_settings,drawable_settings_normal);
     }
 }
