@@ -247,8 +247,12 @@ public class BannerView extends FrameLayout {
 
     public void setList(List<RecentItem> recentItemList1){
         this.recentItemList = recentItemList1;
+        int count = 0;
         for(final RecentItem item:recentItemList1){
             try{
+                if(count==4)
+                    break;
+                count++;
                 MyThread thread = new MyThread(item);
                 thread.start();
                 thread.join();
