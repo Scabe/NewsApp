@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.example.newsapp.R;
 
 /**
- *
+ * 打开APP时的简单动画
  * Created by 晨阳大帅比 on 2018/3/14.
  */
 

@@ -2,17 +2,13 @@ package com.example.newsapp.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
-import android.text.Html;
-import android.util.Log;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.newsapp.OkGet;
 import com.example.newsapp.R;
 
 import org.apache.http.HttpEntity;
@@ -32,10 +28,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * 点击Item或轮播图后打开的网页具体内容
  * Created by 晨阳大帅比 on 2018/3/13.
  */
 
-public class ContentActivity extends Activity{
+public class ContentActivity extends Activity {
     private WebView webView;
     private WebSettings webSettings ;
     final String ArticleContentUrl = "http://news-at.zhihu.com/api/4/news/";
@@ -55,13 +52,11 @@ public class ContentActivity extends Activity{
                 int id = getIntent().getIntExtra("uri",0);
                 String ids = id+"";
                 String uri = ArticleContentUrl + ids;
-                String s = doGet(uri);
-                webView.loadUrl(s);
+                showweb(uri);
                 break;
             case 2:
                 String url = getIntent().getStringExtra("uri");
-                String str = doGet(url);
-                webView.loadUrl(str);
+                showweb(url);
                 break;
             default:
                 break;
@@ -72,26 +67,63 @@ public class ContentActivity extends Activity{
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
-
-    private String doGet(final String url){
-        //String str = null;
+/*
+    private void showweb(final String url){
         try{
-            StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(url);
-            HttpResponse httpResponse = httpClient.execute(httpGet);
-            HttpEntity entity = httpResponse.getEntity();
-            String response = EntityUtils.toString(entity);
-            JSONObject jsonObject = new JSONObject(response);
-            return  jsonObject.getString("share_url");
+            OkHttpClient client = new OkHttpClient();
+            final Request request = new Request.Builder().url(url).build();
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    try{
+                        final JSONObject jsonObject = new JSONObject(response.body().string());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    //webview设置需要在同一个线程中进行，所以这里runOnUiThread
+                                    webView.loadUrl(jsonObject.getString("share_url"));
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
-        return "Error";
+    }*/
+
+    private void showweb(final String url){
+        OkGet okGet = new OkGet(url);
+        okGet.setOnGetListener(new OkGet.OnGetListener() {
+            @Override
+            public void get(String s) {
+                try{
+                    final JSONObject jsonObject = new JSONObject(s);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try{
+                                //webview设置需要在同一个线程中进行，所以这里runOnUiThread
+                                webView.loadUrl(jsonObject.getString("share_url"));
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
-
-
-
 }

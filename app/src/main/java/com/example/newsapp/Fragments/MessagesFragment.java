@@ -25,6 +25,7 @@ import com.example.newsapp.Json.StoriesItemOne;
 import com.example.newsapp.Json.Utility;
 import com.example.newsapp.Custom.MyRecyclerViewAdapter;
 import com.example.newsapp.Json.NewsList;
+import com.example.newsapp.OkGet;
 import com.example.newsapp.R;
 
 import java.io.IOException;
@@ -70,6 +71,10 @@ public class MessagesFragment extends Fragment{
     //使BannerView不随onRefresh自动滑动
     public boolean isMove = true;
 
+    public final static int NewsCase = 1;
+    public final static int RecentCase = 2;
+    public final static int BeforeCase = 3;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -80,19 +85,18 @@ public class MessagesFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        Log.d("MessagesFragment","onCreateView");
         return inflater.inflate(R.layout.messages_layout,container,false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        requestNew(1);
-        requestNew(2);
+        requestNew(NewsCase);
+        requestNew(RecentCase);
         viewList = new ArrayList<>();
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.bannerheader, null);
         bannerView = header.findViewById(R.id.banner);
         header.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 600));
-        //bannerView.setTransformAnim(true);
+        //bannerView.setTransformAnim(true);//设置轮播效果
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL, false);
@@ -112,7 +116,7 @@ public class MessagesFragment extends Fragment{
                 bannerView.once = true;
                 isMove = false;
                 up = false;
-                requestNew(3);
+                requestNew(BeforeCase);
                 swipeRefreshLayout.setRefreshing(false);
                 isMove = true;
             }
@@ -131,7 +135,7 @@ public class MessagesFragment extends Fragment{
             @Override
             public void onAutoChange() {
                 up = true;
-                requestNew(3);
+                requestNew(BeforeCase);
             }
         });
         super.onViewCreated(view, savedInstanceState);
@@ -140,27 +144,14 @@ public class MessagesFragment extends Fragment{
     //更新beforeList recentitemList storiesList
     public void requestNew(final int i){
         String address = response(i);
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(address).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
+        OkGet okGet = new OkGet(address);
+        okGet.setOnGetListener(new OkGet.OnGetListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getActivity(), "新闻加载失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void get(String s) {
                 final List<StoriesItemOne> beforeList = new ArrayList<>();
-                final String responseText = response.body().string();
                 switch (i){
-                    case 1:
-                        NewsList newlist = Utility.parseJsonWithGson(responseText);
+                    case NewsCase:
+                        NewsList newlist = Utility.parseJsonWithGson(s);
                         for (Stories stories :newlist.stories){
                             StoriesItemOne mStories = new StoriesItemOne(stories.title,stories.ga_prefix,stories.images,stories.type,stories.id);
                             storiesList.add(mStories);
@@ -172,8 +163,8 @@ public class MessagesFragment extends Fragment{
                             };
                         });
                         break;
-                    case 2:
-                        Recent recent = Utility.parseJsonwithGson(responseText);
+                    case RecentCase:
+                        Recent recent = Utility.parseJsonwithGson(s);
                         for(RecentItem item:recent.recent){
                             recentitemList.add(item);
                         }
@@ -185,8 +176,8 @@ public class MessagesFragment extends Fragment{
                             };
                         });
                         break;
-                    case 3:
-                        Before before = Utility.ParseJsonWithGson(responseText);
+                    case BeforeCase:
+                        Before before = Utility.ParseJsonWithGson(s);
                         count = Integer.parseInt(before.date);
                         for(Stories stories:before.stories){
                             StoriesItemOne mstories = new StoriesItemOne(stories.title,stories.ga_prefix,stories.images,stories.type,stories.id);
@@ -211,7 +202,6 @@ public class MessagesFragment extends Fragment{
                     default:
                         break;
                 }
-
             }
         });
     }
@@ -222,13 +212,13 @@ public class MessagesFragment extends Fragment{
         final String HotArticleUrl ="https://news-at.zhihu.com/api/3/news/hot";
         final String BeforeArticleUrl = "https://news-at.zhihu.com/api/4/news/before/";
         switch (i){
-            case 1:
+            case NewsCase:
                 address = LatestArticleUrl;
                 break;
-            case 2:
+            case RecentCase:
                 address = HotArticleUrl;
                 break;
-            case 3:
+            case BeforeCase:
                 String str = count + "";
                 address = BeforeArticleUrl + str;
             default:
@@ -242,5 +232,4 @@ public class MessagesFragment extends Fragment{
         super.onDetach();
         context = null;
     }
-
 }

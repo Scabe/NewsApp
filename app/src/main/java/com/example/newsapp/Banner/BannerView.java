@@ -255,34 +255,6 @@ public class BannerView extends FrameLayout {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            /*try {
-                StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                HttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(item.geturl());
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity entity = httpResponse.getEntity();
-                String response = EntityUtils.toString(entity);
-                JSONObject jsonObject = new JSONObject(response);
-                String str = jsonObject.getString("image");
-                String title = jsonObject.getString("title");
-                titleList.add(title);
-                URL url = new URL(str);
-                HttpURLConnection conn=(HttpURLConnection)url.openConnection();
-                conn.setConnectTimeout(6000);
-                conn.setDoInput(true);
-                conn.setUseCaches(false);
-                InputStream is = conn.getInputStream();
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                is.close();
-                ImageView image = new ImageView(getContext());
-                image.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                image.setImageBitmap(bitmap);
-                viewList.add(image);
-            }catch (Exception e){
-                e.printStackTrace();
-            }*/
         }
         if(viewList!=null&&viewList.size()!=0){
             viewSize = viewList.size();
@@ -384,24 +356,17 @@ public class BannerView extends FrameLayout {
                         // Modify the default slide transition to shrink the page as well
                         if (position < 0)
                         {
-
                             float mRot = (20f * position);
                             view.setPivotX(view.getMeasuredWidth() * 0.5f);
                             view.setPivotY(view.getMeasuredHeight());
                             view.setRotation(mRot);
                         } else
                         {
-
                             float mRot = (20f * position);
                             view.setPivotX(view.getMeasuredWidth() * 0.5f);
                             view.setPivotY(view.getMeasuredHeight());
                             view.setRotation(mRot);
                         }
-
-                        // Scale the page down (between MIN_SCALE and 1)
-
-                        // Fade the page relative to its size.
-
                     } else
                     { // (1,+Infinity]
                         // This page is way off-screen to the right.
