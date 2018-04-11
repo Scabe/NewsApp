@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
@@ -38,12 +40,25 @@ public class StartAnimation extends Activity{
     private void initImage() {
         img = findViewById(R.id.start);
         img.setImageResource(R.drawable.startpc);
+        //缩放动画
         ScaleAnimation scaleAnimation = new ScaleAnimation(1.4f,1.0f,1.4f,1.0f, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
         scaleAnimation.setDuration(4000);
-        //动画播放完毕后保持形状
-        scaleAnimation.setFillAfter(true);
+        //渐入
+        AlphaAnimation startalphaAnimation = new AlphaAnimation(0,1);
+        startalphaAnimation.setDuration(1000);
+        //渐出
+        AlphaAnimation endalphaAnimation = new AlphaAnimation(1,0);
+        endalphaAnimation.setDuration(500);
+        endalphaAnimation.setStartOffset(3500);
+        //组合动画，将所有动画组合起来
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(startalphaAnimation);
+        animationSet.addAnimation(endalphaAnimation);
+        //动画播放完毕后保持形状，并跳转到MainActivity
+        animationSet.setFillAfter(true);
         final Intent intent = new Intent(StartAnimation.this,MainActivity.class);
-        scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -52,7 +67,6 @@ public class StartAnimation extends Activity{
             @Override
             public void onAnimationEnd(Animation animation) {
                 startActivity(intent);
-                //overridePendingTransition(and);
                 finish();
             }
 
@@ -61,6 +75,6 @@ public class StartAnimation extends Activity{
 
             }
         });
-        img.startAnimation(scaleAnimation);
+        img.startAnimation(animationSet);
     }
 }
